@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Template</title>
+</head>
+<body>
+    <div id="result">
+
+    </div>
+
+    <form id="form">
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" placeholder="India"><br>
+        <label for="latLong">Latitude & Longitude:</label><br>
+        <input type="text" id="latLong" placeholder="latitude/longitude"><br>
+        <label for="date">Date:</label><br>
+        <input type="text" id="date" placeholder="Date:"><br>
+        <label for="description">Description:</label><br>
+        <textarea id="description" rows="5" placeholder="description"></textarea><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        let form = document.getElementById("form");
+        form.addEventListener("submit", (event)=>{
+                event.preventDefault();
+                let title = document.getElementById("title").value;
+                let description = document.getElementById("description").value;
+                let latLong = document.getElementById("latLong").value;
+                let date = document.getElementById("date").value;
+
+                let template = document.getElementById("template").innerHTML;
+                console.log(template);
+
+                let render = Mustache.render(template, {"description":description, "title":title, "latLong":latLong, "date":date});
+
+                document.getElementById("result").innerHTML=render;
+        });
+    </script>
+
+    <script id="template" type="x-tmpl-mustache">
+        <main class="dimensions">
+            <img src="test-image.png" alt="test-image">
+            <div class="grid-container"> 
+                <div id="template_desc" class="div1">{{description}}</div>
+                <div id="template_title" class="div2">{{title}}</div>
+                <div id="template_latLong" class="div2">{{latLong}}</div>
+                <div id="template_date" class="div2">{{date}}</div>
+            </div>
+        </main>
+    </script>
+
+    <script src="https://unpkg.com/mustache@latest"></script>
+    </body>
+</html>
